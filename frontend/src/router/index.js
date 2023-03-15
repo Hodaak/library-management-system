@@ -1,47 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
-import store from '@/store'
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Dashboard,
-    meta: {
-      needsAuth: true
-    },
-    // it will be called before each route is loaded, and it will check if the JWT is still valid.
-    // If the JWT is expired, it will log out the user and redirect them to the login page
-    beforeEnter: (to, from, next) => {
-      const tokenIsValid = checkTokenExpiration();
-
-      if (!tokenIsValid) {
-        store.dispatch('logout');
-      } else {
-        next();
-      }
-    }
-  },
-  {
-    path: '/dashboard',
-    name: 'Dashboard',
-    component: Dashboard,
-    meta: {
-      needsAuth: true
-    },
-    // it will be called before each route is loaded, and it will check if the JWT is still valid.
-    // If the JWT is expired, it will log out the user and redirect them to the login page
-    beforeEnter: (to, from, next) => {
-      const tokenIsValid = checkTokenExpiration();
-
-      if (!tokenIsValid) {
-        store.dispatch('logout');
-      } else {
-        next();
-      }
-    }
-  },
   {
     path: '/login',
     name: 'Login',
@@ -58,66 +19,15 @@ const routes = [
       sidebar: false
     }
   },
-  {
-    path: '/jobRecords',
-    name: 'JobRecords',
-    component: JobRecords,
-    meta: {
-      needsAuth: true
-    }
-  },
-  {
-      path: '/createJob',
-      name: 'CreateJobRecord',
-      component: CreateJobRecord,
-  },
-  {
-    path: '/job/:id',
-    name: 'JobRecordDetail',
-    component: JobRecordDetail,
-  },
-  {
-    path: '/calendar',
-    name: 'Calendar',
-    component: Calendar,
-    meta: {
-      needsAuth: true
-    }
-  },
-  {
-    path: '/resources',
-    name: 'Resources',
-    component: Resources,
-    meta: {
-      needsAuth: true
-    }
-  },
-  {
-    path: '/portfolios',
-    name: 'Portfolios',
-    component: Portfolios,
-    meta: {
-      needsAuth: true
-    }
-
-  },
-  {
-    path: '/resumeBuilder',
-    name: 'ResumeBuilder',
-    component: ResumeBuilder,
-    meta: {
-      needsAuth: true
-    }
-  },
-  {
-    path: '/communityBlog',
-    name: 'CommunityBlog',
-    component: CommunityBlog,
-    meta: {
-      needsAuth: true
-    }
-
-  }
+  // we need needsAuth property for the pages we need to have authentication like example below
+  // {
+  //   path: '/jobRecords',
+  //   name: 'JobRecords',
+  //   component: JobRecords,
+  //   meta: {
+  //     needsAuth: true
+  //   }
+  // },
 ]
 
 // Create a history that a user can go back to and construct a router object for Vue, respectively.
@@ -140,26 +50,26 @@ router.beforeResolve((to, from, next) => {
 })
 
 // it checks the JWT's expiration time
-function checkTokenExpiration() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return false;
-  }
-
-  const { exp } = decodeJwt(token);
-  if (Date.now() >= exp * 1000) {
-    return false;
-  }
-
-  return true;
-}
-
-// decode the JWT
-function decodeJwt(token) {
-  const payload = token.split('.')[1];
-  const decodedPayload = atob(payload);
-  return JSON.parse(decodedPayload);
-}
+// function checkTokenExpiration() {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     return false;
+//   }
+//
+//   const { exp } = decodeJwt(token);
+//   if (Date.now() >= exp * 1000) {
+//     return false;
+//   }
+//
+//   return true;
+// }
+//
+// // decode the JWT
+// function decodeJwt(token) {
+//   const payload = token.split('.')[1];
+//   const decodedPayload = atob(payload);
+//   return JSON.parse(decodedPayload);
+// }
 
 
 // To export our router
