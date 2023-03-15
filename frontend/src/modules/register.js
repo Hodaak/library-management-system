@@ -14,6 +14,7 @@ export default {
     emailReg: '',
     passwordReg: '',
     confirmReg: '',
+    isAdminReg: '',
     disabled: [true, true, true],
     emptyFields: false
     // prevRoute: null
@@ -53,7 +54,8 @@ export default {
             last_name: this.lastNameReg,
             email: this.emailReg,
             username: this.userNameReg,
-            password: this.passwordReg
+            password: this.passwordReg,
+            is_admin: this.isAdminReg === "Admin"
           }
           // API call
           await userApi.createUser(JSON.stringify(userData)).then(res => {
