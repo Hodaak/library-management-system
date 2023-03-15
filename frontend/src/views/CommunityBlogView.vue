@@ -1,0 +1,49 @@
+<template>
+  <div>
+    <h1 class="view-title">Community Blog</h1>
+    <div class="container">
+      <div class="header">
+        <textarea class="new-post" v-model="newPost" placeholder="Create a new post..."></textarea>
+        <button class="post-button" @click="addPost">Post</button>
+      </div>
+      <div class="posts">
+        <div v-for="(post, index) in posts" :key="index" class="post">
+          <div class="post-header">
+            <div class="post-author">{{ post.author }}</div>
+            <div class="post-menu" v-if="isAuthor(post.author)">
+              <button class="ellipsis-button" @click="togglePostMenu(index)">
+                <i class="fa fa-ellipsis-h"></i>
+              </button>
+              <div class="post-options" v-if="showPostMenu === index">
+                <button class="edit-button" @click="editPost(index)">
+                  <i class="fa fa-edit"></i>Edit
+                </button>
+                <button class="delete-button" @click="deletePost(index)">
+                  <i class="fa fa-trash"></i>Delete
+                </button>
+              </div>
+            </div>
+          </div>
+          <div v-if="!post.editing" class="post-content">{{ post.content }}</div>
+          <div v-if="post.editing">
+            <textarea class="edit-post" v-model="post.content"></textarea>
+            <button class="save-button" @click="saveEditedPost(index)">Save</button>
+          </div>
+          <div class="comments">
+            <div v-for="(comment, commentIndex) in post.comments" :key="commentIndex" class="comment">
+              {{ comment }}
+            </div>
+          </div>
+          <div class="post-footer">
+            <textarea class="new-comment" v-model="newComments[index]" placeholder="Write a comment..."></textarea>
+            <button class="comment-button" @click="addComment(index)">Comment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script src="@/modules/communityBlog.js"/>
+
+<style scoped src="../assets/css/communityBlog.css"/>

@@ -1,0 +1,15 @@
+.container{
+    padding: 0;
+    display: flex;
+    float: left;
+}
+.cards-container{
+    padding: 0;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+#deleteIcon:hover {
+  color: #0d47a1 !important;
+}
+

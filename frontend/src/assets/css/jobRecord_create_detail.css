@@ -1,0 +1,8 @@
+td {
+  text-align: left;
+  padding: 5px;
+}
+/*fill with red when field is empty*/
+.fill-red {
+  background-color: rgba(220,20,60,0.2);
+}

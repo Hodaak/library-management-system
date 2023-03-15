@@ -1,0 +1,45 @@
+.create-button{
+    font-size: 13px;
+    height: 45px;
+    background-color: lightseagreen;
+}
+.create-button:hover{
+    background-color: darkcyan;
+}
+.save-button{
+    font-size: 13px;
+    height: 45px;
+    background-color: lightseagreen;
+}
+.save-button:hover{
+    background-color: darkcyan;
+}
+.delete-button{
+    font-size: 13px;
+    height: 45px;
+    background-color: darkgrey;
+}
+.delete-button:hover{
+    background-color: grey;
+}
+.view-title{
+    text-align: left;
+    margin-bottom: 1.3rem;
+}
+.plus-button {
+  background-color: lightsteelblue;
+  border: none;
+  color: white;
+  padding: 0px 11px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 25px;
+  border-radius: 10px;
+}
+.plus-button:hover {
+  background-color: darkgray;
+  color: white;
+}
+
+
