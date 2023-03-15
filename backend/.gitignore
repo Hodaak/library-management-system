@@ -1,0 +1,10 @@
+# Default ignored files
+/venv/*
+.DS_Store
+# Intellij related
+.idea
+__pycache__/
+# Env variables
+.env
+# Pytest
+.pytest_cache
