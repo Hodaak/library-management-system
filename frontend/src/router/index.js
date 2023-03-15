@@ -1,15 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
-import Dashboard from '../views/DashboardView.vue'
-import JobRecords from '../views/jobRecord/JobRecordsView.vue'
-import JobRecordDetail from '../views/jobRecord/JobRecordDetailView.vue'
-import CreateJobRecord from '../views/jobRecord/CreateJobRecordView.vue'
-import Calendar from '../views/CalendarView.vue'
-import Resources from '../views/ResourcePage/ResourcesView.vue'
-import Portfolios from '../views/portfolio/PortfoliosView.vue'
-import ResumeBuilder from '../views/ResumeBuilderView'
-import CommunityBlog from '../views/CommunityBlogView'
 import store from '@/store'
 
 const routes = [
