@@ -30,11 +30,12 @@ export default ({
   // For example, you can use the login action to log in a user and set the userLoggedIn flag and the user object,
   // and you can use the logout action to log out a user and reset the userLoggedIn flag and the user object.
   actions: {
-    login ({ commit }, { token, user }) {
+    login ({ commit }, { token, user, isAdmin }) {
       commit('setUserLoggedIn', true)
       commit('setUser', user)
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem('libraryToken', token)
+      localStorage.setItem('isAdmin', isAdmin)
       // redirect to Books page since Books page exist for both roles, User and Admin
       router.push({ name: 'Books'})
     },
@@ -43,6 +44,7 @@ export default ({
       commit('setUser', null)
       localStorage.removeItem("user");
       localStorage.removeItem('libraryToken')
+      localStorage.removeItem('isAdmin')
       router.push({ name: 'Login'})
     }
   }

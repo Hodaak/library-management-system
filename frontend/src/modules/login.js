@@ -32,8 +32,9 @@ export default {
         if (response && response.status === 200) {
           const token = response.data.access_token
           const user = this.userNameLogin
+          const isAdmin = response.data.is_admin
           // calling login method in auth.js to update 'store' object
-          await store.dispatch('login', { token, user })
+          await store.dispatch('login', { token, user, isAdmin })
         } else {
           this.msg.failedMsg = response.data.detail
         }
