@@ -14,10 +14,15 @@
                      <span style="color:darkred;font-size: 4mm" v-if="msg.password">{{msg.password}}</span>
                      <input v-model="confirmReg" id="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" required>
                      <span style="color:darkred;font-size:4mm" v-if="msg.confirmPassword">{{msg.confirmPassword}}</span>
+                     <select required v-model="isAdminReg">
+                        <option disabled value="">Please select one</option>
+                        <option>Admin</option>
+                        <option>User</option>
+                     </select>
                      <input id="register-button" type="submit" class="btn btn-primary">
                      <p>Already have an account? <a href="/login" @click="emptyFields = false">Sign in here</a>
-                     </p>
-                  </form>
+                   </p>
+                </form>
          </div>
       </div>
    </div>
