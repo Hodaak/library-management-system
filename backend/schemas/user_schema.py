@@ -7,6 +7,7 @@ class UserBase(BaseModel):
     last_name: str
     email: str
     username: str
+    is_admin: bool
 
 
 class UserCreate(UserBase):
@@ -15,7 +16,6 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    is_super_user: bool
     created_at: datetime
     updated_at: datetime
 
