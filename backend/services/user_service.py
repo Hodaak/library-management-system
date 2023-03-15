@@ -31,6 +31,7 @@ def create_user(db: Session, user: user_schema.UserCreate):
                        last_name=user.last_name,
                        email=user.email,
                        username=user.username,
+                       is_admin=user.is_admin,
                        # Hash the password for saving to the database
                        hashed_password=Hasher.get_password_hash(user.password))
         db.add(db_user)
