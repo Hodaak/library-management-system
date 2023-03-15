@@ -87,7 +87,7 @@ router.beforeResolve((to, from, next) => {
 
 // it checks the JWT's expiration time
 function checkTokenExpiration() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('libraryToken');
   if (!token) {
     return false;
   }
