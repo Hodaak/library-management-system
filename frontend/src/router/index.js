@@ -39,6 +39,7 @@ const routes = [
     // If the JWT is expired, it will log out the user and redirect them to the login page
     beforeEnter: (to, from, next) => {
       const tokenIsValid = checkTokenExpiration();
+      console.log(tokenIsValid)
 
       if (!tokenIsValid) {
         store.dispatch('logout');
