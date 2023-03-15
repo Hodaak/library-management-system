@@ -1,8 +1,9 @@
 import axios, { AxiosError } from 'axios'
+import {API_URL} from '@/services/base/config'
 
 // Provide basic information according to the project settings.
 const loginService = axios.create({
-  baseURL: 'http://localhost:8000/'
+  baseURL: API_URL
 })
 
 // Include the necessary information when requesting an axios
