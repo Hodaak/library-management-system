@@ -1,6 +1,6 @@
 // this is a javascript file for LoginView.vue page
 import store from '@/store'
-import {api} from '../services/AuthApi'
+import {api} from '@/services/AuthApi'
 
 export default {
   name: 'LoginPage',
@@ -28,8 +28,8 @@ export default {
         const response = await api.logInUser(loginFormData, {
           withCredentials: true
         })
-        console.log(response)
-        if (response.status === 200) {
+
+        if (response && response.status === 200) {
           const token = response.data.access_token
           const user = this.userNameLogin
           // calling login method in auth.js to update 'store' object

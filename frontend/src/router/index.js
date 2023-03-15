@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
+import Orders from '@/views/OrdersView.vue'
+import Books from '@/views/BooksView.vue'
+import CheckedOutBooks from '@/views/CheckedOutBooks.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -19,15 +23,46 @@ const routes = [
       sidebar: false
     }
   },
-  // we need needsAuth property for the pages we need to have authentication like example below
-  // {
-  //   path: '/jobRecords',
-  //   name: 'JobRecords',
-  //   component: JobRecords,
-  //   meta: {
-  //     needsAuth: true
-  //   }
-  // },
+  // default path
+  {
+    path: '/',
+    redirect: '/books'
+  },
+  {
+    path: '/books',
+    name: 'Books',
+    component: Books,
+    meta: {
+      needsAuth: true
+    },
+    // it will be called before each route is loaded, and it will check if the JWT is still valid.
+    // If the JWT is expired, it will log out the user and redirect them to the login page
+    beforeEnter: (to, from, next) => {
+      const tokenIsValid = checkTokenExpiration();
+
+      if (!tokenIsValid) {
+        store.dispatch('logout');
+      } else {
+        next();
+      }
+    }
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    component: Orders,
+    meta: {
+      needsAuth: true
+    }
+  },
+  {
+    path: '/checkedOutBooks',
+    name: 'CheckedOutBooks',
+    component: CheckedOutBooks,
+    meta: {
+      needsAuth: true
+    }
+  },
 ]
 
 // Create a history that a user can go back to and construct a router object for Vue, respectively.
@@ -50,26 +85,26 @@ router.beforeResolve((to, from, next) => {
 })
 
 // it checks the JWT's expiration time
-// function checkTokenExpiration() {
-//   const token = localStorage.getItem('token');
-//   if (!token) {
-//     return false;
-//   }
-//
-//   const { exp } = decodeJwt(token);
-//   if (Date.now() >= exp * 1000) {
-//     return false;
-//   }
-//
-//   return true;
-// }
-//
-// // decode the JWT
-// function decodeJwt(token) {
-//   const payload = token.split('.')[1];
-//   const decodedPayload = atob(payload);
-//   return JSON.parse(decodedPayload);
-// }
+function checkTokenExpiration() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return false;
+  }
+
+  const { exp } = decodeJwt(token);
+  if (Date.now() >= exp * 1000) {
+    return false;
+  }
+
+  return true;
+}
+
+// decode the JWT
+function decodeJwt(token) {
+  const payload = token.split('.')[1];
+  const decodedPayload = atob(payload);
+  return JSON.parse(decodedPayload);
+}
 
 
 // To export our router

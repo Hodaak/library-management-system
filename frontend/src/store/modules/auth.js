@@ -35,7 +35,8 @@ export default ({
       commit('setUser', user)
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem('token', token)
-      router.push({ name: 'Dashboard'})
+      // redirect to Books page since Books page exist for both roles, User and Admin
+      router.push({ name: 'Books'})
     },
     logout ({ commit }) {
       commit('setUserLoggedIn', false)

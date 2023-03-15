@@ -6,50 +6,25 @@
          class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a ref="dashboard"
+          <a ref="books"
              :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === dashboardPath ||
-              $route.path === homePath ? 'active' : ''}`"
+             ${$route.path === booksPath ||
+              $route.path === booksPath ? 'active' : ''}`"
             >
-            <SidebarLink to="/dashboard" icon="fas fa-home">Dashboard</SidebarLink>
+            <SidebarLink to="/books" icon="fas fa-home">Books</SidebarLink>
           </a>
-          <a ref="jobRecords"
+          <a ref="orders"
              :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === jobRecordsPath ? 'active' : ''}`"
+             ${$route.path === ordersPath ? 'active' : ''}`"
              >
-            <SidebarLink to="/jobRecords" icon="fas fa-th-list">Job Records</SidebarLink>
+            <SidebarLink to="/orders" icon="fas fa-th-list">Orders</SidebarLink>
           </a>
-          <a ref="calendar"
+          <a ref="checkedOutBooks"
              :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === calendarPath ? 'active' : ''}`"
+             ${$route.path === checkedOutBooksPath ? 'active' : ''}`"
              >
-            <SidebarLink to="/calendar" icon="fas fa-calendar-alt">Calendar</SidebarLink>
+            <SidebarLink to="/checkedOutBooks" icon="fas fa-calendar-alt">Checked-Out Books</SidebarLink>
           </a>
-          <a ref="resources"
-             :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === resourcesPath ? 'active' : ''}`"
-             >
-              <SidebarLink to="/resources" icon="fas fa-window-restore">Resources</SidebarLink>
-          </a>
-          <a ref="portfolios"
-             :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === portfoliosPath ? 'active' : ''}`"
-             >
-            <SidebarLink to="/portfolios" icon="fas fa-columns">Portfolios</SidebarLink>
-          </a>
-          <a ref="resumeBuilder"
-             :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === resumeBuilderPath ? 'active' : ''}`"
-             >
-            <SidebarLink to="/resumeBuilder" icon="fas fa-tools">Resume Builder</SidebarLink>
-          </a>
-          <a ref="communityBlog"
-             :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === communityBlogPath ? 'active' : ''}`"
-             >
-            <SidebarLink to="/communityBlog" icon="fas fa-link">Community Blog</SidebarLink>
-          </a>
-
         </div>
       </div>
     </nav>
@@ -72,7 +47,7 @@
 
         <!-- Brand -->
         <a class="navbar-brand" href="#">
-          <h2>JobEase</h2>
+          <h2>Library Management System</h2>
         </a>
 
         <!-- Right links -->
@@ -125,14 +100,9 @@ export default {
   data() {
     return {
       showUserDropdown: false,
-      homePath: this.$router.options.routes.find(route => route.name === 'Home').path,
-      dashboardPath: this.$router.options.routes.find(route => route.name === 'Dashboard').path,
-      jobRecordsPath: this.$router.options.routes.find(route => route.name === 'JobRecords').path,
-      calendarPath: this.$router.options.routes.find(route => route.name === 'Calendar').path,
-      resourcesPath: this.$router.options.routes.find(route => route.name === 'Resources').path,
-      portfoliosPath: this.$router.options.routes.find(route => route.name === 'Portfolios').path,
-      resumeBuilderPath: this.$router.options.routes.find(route => route.name === 'ResumeBuilder').path,
-      communityBlogPath: this.$router.options.routes.find(route => route.name === 'CommunityBlog').path,
+      booksPath: this.$router.options.routes.find(route => route.name === 'Books').path,
+      ordersPath: this.$router.options.routes.find(route => route.name === 'Orders').path,
+      checkedOutBooksPath: this.$router.options.routes.find(route => route.name === 'CheckedOutBooks').path,
     };
   },
   components: { SidebarLink },
