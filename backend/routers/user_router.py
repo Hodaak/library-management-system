@@ -18,7 +18,7 @@ async def retrieve_user_by_id(user_id: int,
                               db: Session = Depends(get_db),
                               current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-    if user_id != current_user.id and current_user.is_super_user is False:
+    if user_id != current_user.id and current_user.is_admin is False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
 
     db_user = user_service.get_user_by_id(db=db, user_id=user_id)
@@ -32,7 +32,7 @@ async def retrieve_all_users(limit: int = 100,
                              db: Session = Depends(get_db),
                              current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-    if current_user.is_super_user is False:
+    if current_user.is_admin is False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
 
     return user_service.get_all_users(db=db, limit=limit)
@@ -51,7 +51,7 @@ def delete_user(user_id: int,
                 db: Session = Depends(get_db),
                 current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-    if user_id != current_user.id and current_user.is_super_user is False:
+    if user_id != current_user.id and current_user.is_admin is False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
 
     db_user = user_service.delete_user_by_id(db=db, user_id=user_id)
