@@ -6,7 +6,7 @@
     title="Confirmation"
     message="Are you sure about returning this book?"
     confirm-btn-label="Yes"
-    :on-confirm="remove"
+    :on-confirm="updateReturnStatus"
     @close-modal="openReturnConfirmDialog = false;"
   />
   <h1 class="view-title">Orders</h1>
@@ -33,15 +33,22 @@
             <tbody>
               <tr v-for="(row, index) in orders" :key="index">
                 <td>{{ this.orders.length ? this.orders[index].id : '' }}</td>
-                <td class="pt-3-half" contenteditable="false">{{ this.orders.length ? this.orders[index].orders_title : '' }}</td>
-                <td>{{ this.orders.length ? this.orders[index].author_name : '' }}</td>
-                <td>{{ this.orders.length ? this.orders[index].Checkout_date : '' }}</td>
+                <td class="pt-3-half" contenteditable="false">{{ this.orders.length ? this.orders[index].book.title : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].book.author_name : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].checkout_date : '' }}</td>
                 <td>{{ this.orders.length ? this.orders[index].final_return_date : '' }}</td>
-                <td>{{ this.orders.length ? this.orders[index].return_date : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].returned_date : '' }}</td>
                 <td>
-                  <span class="table-view" @click=updateReturnStatus()></span>
-                  <span class="table-remove" @click="openReturnDialog()">                  
-                    <button type="button" class="btn btn-green btn-rounded btn-sm my-0" :disabled="isReturnedDisabled">
+                  <span v-if="this.orders[index].returned_date === null">
+                    <span @click="updateReturnStatus()"></span>
+                    <span @click="openReturnDialog(index)">
+                      <button type="button" class="btn btn-green btn-rounded btn-sm my-0">
+                        Returned
+                      </button>
+                    </span>
+                  </span>
+                  <span v-else>
+                    <button type="button" class="btn btn-green btn-rounded btn-sm my-0" disabled>
                       Returned
                     </button>
                   </span>

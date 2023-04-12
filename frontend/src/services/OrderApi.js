@@ -11,6 +11,6 @@ export const orderApi = {
   },
 
   updateOrder(orderId, data){
-    return service.put(`${API.order('')}${orderId}`, data)
+    return service.post(`${API.order('')}return/${orderId}`, data)
   },
 }

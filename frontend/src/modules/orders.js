@@ -1,7 +1,8 @@
 import { orderApi } from '../services/OrderApi'
+import ConfirmationDialog from '../components/ConfirmationDialog.vue'
 export default {
   components: {
-    
+    ConfirmationDialog
   },
     data() {
       return {
@@ -35,11 +36,11 @@ export default {
       sortData() {
         let sortedDataArray = this.orders.slice()
         sortedDataArray.sort((a, b) => {
-          if (this.sortAscending) {
-            return a.order_title.localeCompare(b.order_title)
-          } else {
-            return b.order_title.localeCompare(a.order_title)
-          }
+            if (this.sortAscending) {
+            return a.book.title.localeCompare(b.book.title)
+            } else {
+            return b.book.title.localeCompare(a.book.title)
+            }
         })
         this.orders = sortedDataArray
         this.sortAscending = !this.sortAscending
@@ -49,10 +50,11 @@ export default {
         this.openReturnConfirmDialog = true
       },
       updateReturnStatus() {
+        this.isReturnedDisabled = true
         if (this.orderIdToUpdate !== null) {
             orderApi.updateOrder(this.orderIdToUpdate).then(response => {
                 if(response && response.status === 200){
-                this.isReturnedDisabled = true
+                
                 location.reload()
                 }
             })
