@@ -2,7 +2,6 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.book_model import Book
 from schemas import book_schema
-from core.hashing import Hasher
 
 
 def get_book_by_id(db: Session, id: int):
@@ -16,6 +15,27 @@ def get_books_by_author(db: Session, author_name: str):
 
 def get_book_by_title(db: Session, title: int):
     return db.query(Book).filter(Book.title == title).first()
+
+
+def decrease_book_quantity_by_one(db: Session, id: int):
+    db_book = db.query(Book).filter(Book.id == id).first()
+    if db_book is None:
+        return None
+    quantity = db_book.quantity
+    db_book.quantity = quantity-1
+    db.commit()
+    db.refresh(db_book)
+
+
+def increase_book_quantity_by_one(db: Session, id: int):
+    db_book = db.query(Book).filter(Book.id == id).first()
+    if db_book is None:
+        return None
+    quantity = db_book.quantity
+    db_book.quantity = quantity+1
+    db.commit()
+    db.refresh(db_book)
+
 
 # def delete_book_by_id(db: Session, book_id: int):
 #     existing_user = db.query(Book).filter(Book.id == user_id)
