@@ -13,8 +13,7 @@ export default {
     return {
       books: [],
       selectedBook: null,
-      resourcesToShow: [],
-      export: "",
+      searchText: "",
       bookIdToDelete: null,
       sortAscending: true,
       isViewModalVisible: false,
@@ -26,6 +25,20 @@ export default {
     };
   },
   computed: {
+    filteredBooks() {
+      if (!this.searchText) {
+        return this.books;
+      }
+      const searchTextLower = this.searchText.toLowerCase();
+      return this.books.filter(book => {
+        return (
+          book.book_id.toLowerCase().includes(searchTextLower) ||
+          book.title.toLowerCase().includes(searchTextLower) ||
+          book.author_name.toLowerCase().includes(searchTextLower) ||
+          book.quantity.toString().includes(searchTextLower)
+        );
+      });
+    },
     isAdmin() {
       return localStorage.getItem('isAdmin') === 'true'
     }

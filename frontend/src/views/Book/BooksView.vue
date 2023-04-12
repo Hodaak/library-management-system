@@ -30,12 +30,28 @@
               <i class="fas fa-plus fa-2x sign-blue icon" aria-hidden="true"></i>
             </a>
           </span>
+          <!-- Search form -->
+          <div style="display:inline-block; float:right;"
+                class="d-none d-md-flex input-group w-auto my-auto navbar-nav ms-auto d-flex flex-row">
+            <input
+                  v-model="searchText"
+                   autocomplete="off"
+                   type="search"
+                   class="form-control rounded"
+                   placeholder='Search'
+                   style="min-width: 225px"
+                   />
+            <span class="input-group-text border-0"
+                  ><i class="fas fa-search"></i
+              ></span>
+          </div>
           <BookDetail ref="BookDetail"
             :bookToUpdate = "selectedBook"
             style="align-content: center"
             v-if="isCreateModalVisible"
             @close-modal="isCreateModalVisible = false, selectedBook = null"
           />
+          <br><br>
           <div id="table" class="table-editable">
             <table class="table table-responsive-md table-striped text-center">
               <thead>
@@ -54,7 +70,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(book, index) in books" :key="book.id">
+                <tr v-for="(book, index) in filteredBooks" :key="book.id">
                   <td class="pt-3-half" contenteditable="false">{{ book.book_id }}</td>
                   <td class="pt-3-half" contenteditable="false">{{ book.title }}</td>
                   <td class="pt-3-half" contenteditable="false">{{ book.author_name }}</td>
