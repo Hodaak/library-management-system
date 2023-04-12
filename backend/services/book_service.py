@@ -23,7 +23,11 @@ def decrease_book_quantity_by_one(db: Session, id: int):
     if db_book is None:
         return None
     quantity = db_book.quantity
-    db_book.quantity = quantity-1
+    if quantity <= 0:
+        db_book.quantity = 0
+    else:
+        db_book.quantity = quantity-1
+    
     db.commit()
     db.refresh(db_book)
 
