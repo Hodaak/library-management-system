@@ -1,6 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.book_model import Book
+from database.db_models.order_model import Order
 from schemas import book_schema
 
 
@@ -72,7 +73,17 @@ def update_book(db: Session, book: book_schema.BookCreate, id: int):
         db_book.book_id=book.book_id
         db_book.title=book.title
         db_book.author_name=book.author_name
-        db_book.quantity=book.quantity
+        count = db.query(Order).filter(Order.book_id == id, Order.is_returned == 0).count()
+        quantity = book.quantity
+
+        if quantity < 0:
+            quantity = 0
+        if quantity < count:
+            quantity = count
+        
+        print("Count ", count)
+        print("QUan ", quantity)
+        db_book.quantity=quantity
         
         db.commit()
         db.refresh(db_book)
