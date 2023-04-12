@@ -15,7 +15,7 @@ service.interceptors.request.use(
     config.headers['Content-Type'] = 'application/json';
 
     // add authorization header only if the token exists; otherwise ignore
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('libraryToken');
     if (token) {
       config.headers['Authorization'] = 'Bearer ' + token;
       // config.headers['Authorization'] = 'Bearer ${this.$store.state.token}';

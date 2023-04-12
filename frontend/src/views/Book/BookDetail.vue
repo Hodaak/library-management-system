@@ -1,8 +1,12 @@
 <template>
+  <vue-basic-alert
+     :duration="300"
+     :closeIn="2500"
+     ref="alert" />
   <div class="modal">
-    <div class="overlay" @click="$emit('close-modal')"></div>
+    <div class="overlay" @click="$emit('close-modal'), bookToUpdate = null, tempSelectedBook=null"></div>
     <div class="modal-card">
-      <div v-if="!selectedBook">
+      <div v-if="tempSelectedBook == null">
         <h3>Add New Book</h3>
         <br>
         <span style="color:darkred;font-size:4mm" v-if="bookMsg.failed">{{`* ${bookMsg.failed}`}}</span>
@@ -15,25 +19,25 @@
               <div class="form-group row">
                 <label for="book-id" class="col-sm-3 col-form-label">Book Id:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="book-id" v-model="newBookId">
+                  <input type="text" class="form-control" id="book-id" v-model="newBookId" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="book-title" class="col-sm-3 col-form-label">Title:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="book-title" v-model="newBookTitle">
+                  <input type="text" class="form-control" id="book-title" v-model="newBookTitle" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="book-author" class="col-sm-3 col-form-label">Author:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="book-author" v-model="newBookAuthor">
+                  <input type="text" class="form-control" id="book-author" v-model="newBookAuthor" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="book-quantity" class="col-sm-3 col-form-label">Quantity:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="book-quantity" v-model="newBookQuantity">
+                  <input type="number" min="1" class="form-control" id="book-quantity" v-model="newBookQuantity" required>
                 </div>
               </div>
               <br/>
@@ -56,25 +60,25 @@
               <div class="form-group row">
                 <label for="selected-book-id" class="col-sm-3 col-form-label">Book Id:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="selected-book-id" v-model="selectedBook.id">
+                  <input type="text" class="form-control" id="selected-book-id" v-model="tempSelectedBook.book_id" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="selected-book-title" class="col-sm-3 col-form-label">Title:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="selected-book-title" v-model="selectedBook.title">
+                  <input type="text" class="form-control" id="selected-book-title" v-model="tempSelectedBook.title" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="selected-book-author" class="col-sm-3 col-form-label">Author:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="selected-book-author" v-model="selectedBook.author">
+                  <input type="text" class="form-control" id="selected-book-author" v-model="tempSelectedBook.author_name" required>
                 </div>
               </div>
               <div class="form-group row">
                 <label for="selected-book-quantity" class="col-sm-3 col-form-label">Quantity:</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="selected-book-quantity" v-model="selectedBook.quantity">
+                  <input type="number" min="1" class="form-control" id="selected-book-quantity" v-model="tempSelectedBook.quantity" required>
                 </div>
               </div>
               <br/>
@@ -113,7 +117,7 @@
 }
 .modal-card {
   position: relative;
-  width: 1200px; /* fixed value */
+  width: 850px; /* fixed value */
   margin: 30px auto auto;
   top: 15%;
   padding: 20px;
@@ -129,18 +133,6 @@ label {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.resource-item {
-  display: flex;
-  align-items: center;
-}
-.resource-checkbox {
-  margin-right: 10px;
-}
-.resource-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 
 .close-icon:hover {background-color: rgb(238, 102, 102); color: white;}
 .close-icon {
@@ -153,23 +145,5 @@ label {
   padding-left: 5px;
   padding-right: 5px;
   font-size: 1.8em;
-}
-
-.selected-resource-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.selected-resource-item {
-  cursor: pointer;
-  padding: 10px;
-  transition: background-color 0.3s ease;
-  border-bottom: 1px solid #dee2e6;
-}
-.selected-resource-item:last-child {
-  border-bottom: none;
-}
-.selected-resource-item:hover {
-  background-color: #e9ecef;
 }
 </style>

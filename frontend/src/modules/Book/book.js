@@ -1,5 +1,6 @@
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import BookDetail from '@/views/Book/BookDetail.vue'
+import {bookApi} from '@/services/BookApi'
 
 export default {
   name: 'BooksView',
@@ -10,13 +11,17 @@ export default {
   data() {
     return {
       books: [],
+      selectedBook: null,
       resourcesToShow: [],
       export: "",
       bookIdToDelete: null,
       sortAscending: true,
       isViewModalVisible: false,
       isCreateModalVisible: false,
-      openDeleteConfirmDialog: false
+      openDeleteConfirmDialog: false,
+
+      bookIdToPlaceOrder: null,
+      openBookOrderConfirmDialog: false,
     };
   },
   computed: {
@@ -24,14 +29,14 @@ export default {
       return localStorage.getItem('isAdmin') === 'true'
     }
   },
-  mounted () {
+  created () {
     this.loadBooks();
   },
   methods: {
     async loadBooks () {
-      // const resourcesRsp = await fileApi.getAllResources()
-      // this.resources = resourcesRsp.data
-      // console.log('this.resources ', this.resources )
+      const booksRsp = await bookApi.getAllBooks()
+      this.books = booksRsp.data
+      console.log('this.books ', this.books )
     },
     sortData() {
         let sortedDataArray = this.books.slice();
@@ -52,25 +57,30 @@ export default {
       });
       this.isCreateModalVisible = true
     },
-    openDeletePortfolioDialog(index){
+    openDeleteBookDialog(index){
       this.bookIdToDelete = this.books[index].id
       this.openDeleteConfirmDialog = true
     },
-    editBook(index){
-      this.$nextTick(() => {
-        this.$refs.BookDetail.$props.selectedBook = this.books[index];
-      });
+    async editBook(index){
       this.isCreateModalVisible = true
+      this.selectedBook = this.books[index]
+    },
+    openOrderBookDialog(index){
+      this.bookIdToPlaceOrder = this.books[index].id
+      this.openBookOrderConfirmDialog = true
     },
     orderBook(index) {
       console.log(index)
-    },
+      this.$refs.alert.showAlert('success',
+        'Successfully ordered the book',
+        'Success')
+      },
     remove() {
-      // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
-      //   if(response && response.status === 200){
-      //     location.reload()
-      //   }
-      // })
+    // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
+    //   if(response && response.status === 200){
+    //     location.reload()
+    //   }
+    // })
     },
   }
 }
