@@ -24,6 +24,20 @@ export default {
       openBookOrderConfirmDialog: false,
     };
   },
+  mounted() {
+    window.addEventListener('load', () => {
+      const url = new URL(window.location.href);
+      const alertMessage = url.searchParams.get('alertMessage');
+      const alertType = url.searchParams.get('alertType');
+
+      if (alertMessage && alertType) {
+        this.$refs.alert.showAlert(alertType, alertMessage, 'Success');
+        url.searchParams.delete('alertMessage');
+        url.searchParams.delete('alertType');
+        window.history.replaceState({}, '', url);
+      }
+    });
+  },
   computed: {
     filteredBooks() {
       if (!this.searchText) {
@@ -46,14 +60,6 @@ export default {
   created () {
     this.loadBooks();
   },
-  mounted() {
-    const params = new URLSearchParams(window.location.search)
-    if (params.get('showAlert') === 'success') {
-      this.$refs.alert.showAlert('success',
-        'Successfully ordered the book',
-        'Success')
-    }
-  },
   methods: {
     async loadBooks () {
       const booksRsp = await bookApi.getAllBooks()
@@ -74,9 +80,6 @@ export default {
     },
     // Trigger opening the portfolio creation dialog
     newBook () {
-      this.$nextTick(() => {
-        this.$refs.BookDetail.$props.selectedBook = null;
-      });
       this.isCreateModalVisible = true
     },
     openDeleteBookDialog(index){
@@ -99,10 +102,11 @@ export default {
 
       await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
         if (response && response.status === 200) {
-          // Add a query parameter to the URL before reloading
-          const url = new URL(window.location.href)
-          url.searchParams.set('showAlert', 'success')
-          window.location.href = url.href
+          // Add a query parameter to the URL with the alert message and type
+          const url = new URL(window.location.href);
+          url.searchParams.set('alertMessage', 'Successfully ordered the book');
+          url.searchParams.set('alertType', 'success');
+          window.location.href = url.toString();
         } else {
           this.$refs.alert.showAlert('error',
             response.data.detail,
@@ -119,3 +123,5 @@ export default {
     },
   }
 }
+
+
