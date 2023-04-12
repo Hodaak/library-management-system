@@ -24,7 +24,15 @@ export default {
       return localStorage.getItem('isAdmin') === 'true'
     }
   },
+  mounted () {
+    this.loadBooks();
+  },
   methods: {
+    async loadBooks () {
+      // const resourcesRsp = await fileApi.getAllResources()
+      // this.resources = resourcesRsp.data
+      // console.log('this.resources ', this.resources )
+    },
     sortData() {
         let sortedDataArray = this.books.slice();
         sortedDataArray.sort((a, b) => {
@@ -39,18 +47,19 @@ export default {
     },
     // Trigger opening the portfolio creation dialog
     newBook () {
+      this.$nextTick(() => {
+        this.$refs.BookDetail.$props.selectedBook = null;
+      });
       this.isCreateModalVisible = true
-    },
-    viewBook (index) {
-      this.resourcesToShow = this.books[index].resources
-      this.isViewModalVisible = true
     },
     openDeletePortfolioDialog(index){
       this.bookIdToDelete = this.books[index].id
       this.openDeleteConfirmDialog = true
     },
     editBook(index){
-      this.$refs.BookDetail.selectedBook = this.books[index];
+      this.$nextTick(() => {
+        this.$refs.BookDetail.$props.selectedBook = this.books[index];
+      });
       this.isCreateModalVisible = true
     },
     orderBook(index) {

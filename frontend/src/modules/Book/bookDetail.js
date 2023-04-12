@@ -10,7 +10,7 @@ export default {
     selectedBook: {
       type: Array,
       required: false,
-      default: []
+      default: null
     },
   },
   data(){

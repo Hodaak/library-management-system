@@ -35,7 +35,6 @@
                   </th>
                   <th class="text-center">Author</th>
                   <th class="text-center">Quantity</th>
-                  <th class="text-center">View</th>
                   <th class="text-center">Edit</th>
                   <th class="text-center">Remove</th>
                 </tr>
@@ -43,13 +42,6 @@
               <tbody>
                 <tr v-for="(book, index) in books" :key="book.id">
                   <td class="pt-3-half" contenteditable="false">{{ book.title }}</td>
-                  <td>
-                    <span class="table-view" @click="viewBook(index)">
-                      <button type="button" class="btn btn-green btn-rounded btn-sm my-0">
-                        View
-                      </button>
-                    </span>
-                  </td>
                   <td>
                     <span class="table-download" @click="editBook(index)">
                       <button type="button" class="btn btn-green btn-rounded btn-sm my-0">
@@ -76,11 +68,6 @@
     <div class="py-4 container-fluid">
       <div class="card scrollable">
         <div class="card-body">
-          <AddBookModal
-            style="align-content: center"
-            v-if="isCreateModalVisible"
-            @close-modal="isCreateModalVisible = false"
-          />
           <div id="table" class="table-editable">
             <table class="table table-responsive-md table-striped text-center">
               <thead>
@@ -100,7 +87,7 @@
                   <td>
                     <span class="table-view" @click="orderBook(index)">
                       <button type="button" class="btn btn-green btn-rounded btn-sm my-0">
-                        Place Order
+                        Place an order
                       </button>
                     </span>
                   </td>
