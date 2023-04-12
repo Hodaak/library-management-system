@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from ..db_setup import Base
 from .mixins import Timestamp
@@ -14,6 +15,8 @@ class User(Base, Timestamp):
     username = Column(String(45), nullable=False, unique=True)
     is_admin = Column(Boolean, nullable=False, default=False)
     hashed_password = Column(String(65), nullable=False)
+
+    orders = relationship("Order", back_populates="user")
 
     def __init__(self, first_name, last_name, email, username, is_admin, hashed_password):
         super(User, self).__init__()

@@ -1,5 +1,6 @@
 <template>
   <h1 class="view-title">Books</h1>
+
 </template>
 
 <script>

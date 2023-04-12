@@ -3,11 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from core.config import settings
 from database.db_setup import engine
-from database.db_models import user_model
-from routers import user_router, authentication_router
+from database.db_models import user_model, book_model, order_model
+from routers import user_router, authentication_router, book_router, order_router
 
 # Bind models
 user_model.Base.metadata.create_all(bind=engine)
+book_model.Base.metadata.create_all(bind=engine)
+order_model.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title=settings.PROJECT_NAME,
               description=settings.PROJECT_DESCRIPTION,
@@ -27,6 +29,8 @@ app.add_middleware(
 
 app.include_router(user_router.router)
 app.include_router(authentication_router.router)
+app.include_router(book_router.router)
+app.include_router(order_router.router)
 
 
 @app.get("/")
