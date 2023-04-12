@@ -19,12 +19,6 @@
              >
             <SidebarLink to="/orders" icon="fas fa-th-list">Orders</SidebarLink>
           </a>
-          <a ref="checkedOutBooks"
-             :class="`menuItem list-group-item list-group-item-action py-2 ripple
-             ${$route.path === checkedOutBooksPath ? 'active' : ''}`"
-             >
-            <SidebarLink to="/checkedOutBooks" icon="fas fa-calendar-alt">Checked-Out Books</SidebarLink>
-          </a>
         </div>
       </div>
     </nav>
@@ -102,7 +96,6 @@ export default {
       showUserDropdown: false,
       booksPath: this.$router.options.routes.find(route => route.name === 'Books').path,
       ordersPath: this.$router.options.routes.find(route => route.name === 'Orders').path,
-      checkedOutBooksPath: this.$router.options.routes.find(route => route.name === 'CheckedOutBooks').path,
     };
   },
   components: { SidebarLink },
