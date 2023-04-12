@@ -46,6 +46,14 @@ export default {
   created () {
     this.loadBooks();
   },
+  mounted() {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('showAlert') === 'success') {
+      this.$refs.alert.showAlert('success',
+        'Successfully ordered the book',
+        'Success')
+    }
+  },
   methods: {
     async loadBooks () {
       const booksRsp = await bookApi.getAllBooks()
@@ -81,17 +89,20 @@ export default {
     },
     openOrderBookDialog(index){
       this.bookIdToPlaceOrder = this.books[index].id
+      console.log(this.bookIdToPlaceOrder)
       this.openBookOrderConfirmDialog = true
     },
-    async orderBook(index) {
+    async orderBook() {
       const inputs = {
-        book_id: this.books[index].id
+        book_id: this.bookIdToPlaceOrder
       }
+
       await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
         if (response && response.status === 200) {
-          this.$refs.alert.showAlert('success',
-        'Successfully ordered the book',
-        'Success')
+          // Add a query parameter to the URL before reloading
+          const url = new URL(window.location.href)
+          url.searchParams.set('showAlert', 'success')
+          window.location.href = url.href
         } else {
           this.$refs.alert.showAlert('error',
             response.data.detail,
