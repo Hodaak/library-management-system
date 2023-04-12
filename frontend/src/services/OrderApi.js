@@ -10,7 +10,7 @@ export const orderApi = {
   },
 
   getAllOrdersForUser () {
-    return service.get(`${API.order('')}?limit=100`)
+    return service.get(`${API.order('')}user/?limit=100`)
   },
 
   updateOrder(orderId, data){
