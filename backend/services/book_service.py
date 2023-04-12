@@ -80,9 +80,7 @@ def update_book(db: Session, book: book_schema.BookCreate, id: int):
             quantity = 0
         if quantity < count:
             quantity = count
-        
-        print("Count ", count)
-        print("QUan ", quantity)
+            
         db_book.quantity=quantity
         
         db.commit()
