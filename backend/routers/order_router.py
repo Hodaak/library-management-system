@@ -39,7 +39,7 @@ async def create_new_order(order: order_schema.OrderCreate,
     if current_user.is_admin is False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
     
-    db_order = order_service.place_order(db=db, order=order)
+    db_order = order_service.place_order(db=db, order=order, user_id=current_user.id)
     if db_order is None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Book doesn't exits, so can't place order")
     return db_order

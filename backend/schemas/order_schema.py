@@ -6,13 +6,10 @@ from schemas.book_schema import Book
 
 
 class OrderBase(BaseModel):
-    checkout_date: datetime
-    final_return_date: datetime
-    returned_date: Optional[datetime] = None
+    pass
 
 
 class OrderCreate(OrderBase):
-    user_id: int
     book_id: int
 
 
@@ -21,6 +18,9 @@ class Order(OrderBase):
     user: User
     book: Book
     is_returned: bool
+    checkout_date: datetime
+    final_return_date: datetime
+    returned_date: Optional[datetime] = None
     created_at: datetime
     updated_at: datetime
 
