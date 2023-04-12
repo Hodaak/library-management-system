@@ -64,8 +64,6 @@
                 v-if="showUserDropdown"
                 v-bind:class="{ show: showUserDropdown }"
               >
-                <li><a class="dropdown-item" href="#">My profile</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li><a class="dropdown-item" @click="logout">Logout</a></li>
               </ul>
           </li>

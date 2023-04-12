@@ -96,23 +96,31 @@ export default {
       this.openBookOrderConfirmDialog = true
     },
     async orderBook() {
-      const inputs = {
-        book_id: this.bookIdToPlaceOrder
+      if(this.books.find(x=> x.id === this.bookIdToPlaceOrder).quantity > 0) {
+        const inputs = {
+          book_id: this.bookIdToPlaceOrder
+        }
+
+        await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
+          if (response && response.status === 200) {
+              // Add a query parameter to the URL with the alert message and type
+              const url = new URL(window.location.href);
+              url.searchParams.set('alertMessage', 'Successfully ordered the book');
+              url.searchParams.set('alertType', 'success');
+              window.location.href = url.toString();
+            } else {
+              this.$refs.alert.showAlert('error',
+                response.data.detail,
+                'Error placing order')
+            }
+          });
+      }
+      else {
+        this.$refs.alert.showAlert('error',
+            "Couldn't place an order of book because there's no more selected books",
+            'Error placing order')
       }
 
-      await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
-        if (response && response.status === 200) {
-          // Add a query parameter to the URL with the alert message and type
-          const url = new URL(window.location.href);
-          url.searchParams.set('alertMessage', 'Successfully ordered the book');
-          url.searchParams.set('alertType', 'success');
-          window.location.href = url.toString();
-        } else {
-          this.$refs.alert.showAlert('error',
-            response.data.detail,
-            'Error placing order')
-        }
-      });
     },
     remove() {
     // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {

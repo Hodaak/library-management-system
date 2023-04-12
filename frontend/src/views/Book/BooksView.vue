@@ -46,7 +46,7 @@
               ></span>
           </div>
           <BookDetail ref="BookDetail"
-            :bookToUpdate = "selectedBook"
+            :bookToUpdate = "selectedBook ? selectedBook : null"
             style="align-content: center"
             v-if="isCreateModalVisible"
             @close-modal="isCreateModalVisible = false, selectedBook = null"

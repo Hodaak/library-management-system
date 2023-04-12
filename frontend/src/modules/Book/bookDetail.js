@@ -10,7 +10,7 @@ export default {
   props: {
     // when we want to update Book
     bookToUpdate: {
-      type: Array,
+      type: Object,
       required: false,
       default: null
     },
@@ -32,6 +32,19 @@ export default {
     if(this.bookToUpdate){
       this.tempSelectedBook = Object.assign({}, this.bookToUpdate);
     }
+
+    window.addEventListener('load', () => {
+      const url = new URL(window.location.href);
+      const alertMessage = url.searchParams.get('alertMessage');
+      const alertType = url.searchParams.get('alertType');
+
+      if (alertMessage && alertType) {
+        this.$refs.alert.showAlert(alertType, alertMessage, 'Success');
+        url.searchParams.delete('alertMessage');
+        url.searchParams.delete('alertType');
+        window.history.replaceState({}, '', url);
+      }
+    });
   },
   methods: {
     async createNewBook() {
@@ -44,10 +57,11 @@ export default {
 
       await bookApi.createBook(JSON.stringify(inputs)).then(response => {
         if (response && response.status === 200) {
-          this.$refs.alert.showAlert('success',
-          'Successfully added new book',
-          'Success')
-          this.resetForm();
+          this.$emit('close-modal')
+          const url = new URL(window.location.href);
+          url.searchParams.set('alertMessage', 'Successfully added new book');
+          url.searchParams.set('alertType', 'success');
+          window.location.href = url.toString();
         }
         else {
           this.$refs.alert.showAlert('error',
@@ -63,13 +77,14 @@ export default {
         author_name: this.tempSelectedBook.author_name,
         quantity: this.tempSelectedBook.quantity,
       }
+      console.log(`update book id: ${this.tempSelectedBook.id}`)
       await bookApi.updateBook(this.tempSelectedBook.id, JSON.stringify(inputs)).then(async response => {
         if (response && response.status === 200) {
           this.$emit('close-modal')
-          location.reload()
-          await this.$refs.alert.showAlert('success',
-            'Successfully updated a book',
-            'Success')
+          const url = new URL(window.location.href);
+          url.searchParams.set('alertMessage', 'Successfully updated a book');
+          url.searchParams.set('alertType', 'success');
+          window.location.href = url.toString();
         } else {
           this.$refs.alert.showAlert('error',
             response.data.detail,
@@ -82,6 +97,6 @@ export default {
       this.newBookTitle = "";
       this.newBookAuthor = "";
       this.newBookQuantity = 1;
-    }
+    },
   }
 }
