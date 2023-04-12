@@ -23,15 +23,12 @@ async def retrieve_all_orders(limit: int = 100,
     return order_service.get_all_orders(db=db, limit=limit)
 
 
-@router.get("/{user_id}", response_model=list[order_schema.Order])
-async def retrieve_all_orders_for_user(user_id: int,
-                                       limit: int = 100,
+@router.get("/user", response_model=list[order_schema.Order])
+async def retrieve_all_orders_for_user(limit: int = 100,
                                        db: Session = Depends(get_db),
                                        current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-    if user_id != current_user.id and current_user.is_admin is False:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
-    return order_service.get_all_orders(db=db, limit=limit)
+    return order_service.get_all_orders_for_user(db=db, user_id=current_user.id)
 
 
 @router.post("/", response_model=order_schema.Order)
