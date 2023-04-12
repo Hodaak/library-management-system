@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from ..db_setup import Base
 from .mixins import Timestamp
@@ -12,6 +13,8 @@ class Book(Base, Timestamp):
     title = Column(String(45), nullable=False)
     author_name = Column(String(45), nullable=False)
     quantity = Column(Integer, nullable=False)
+
+    orders = relationship("Order", back_populates="book")
 
     def __init__(self, book_id, title, author_name, quantity):
         super(Book, self).__init__()
