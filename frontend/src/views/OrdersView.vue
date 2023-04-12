@@ -22,7 +22,7 @@
             <thead>
               <tr>
                 <th class="text-center">Order Id</th>
-                <th class="text-center">Title
+                <th class="text-center">Book Title
                   <a href="#" @click="sortData" title="Sort resources">
                     <i class="fas fa-sort" aria-hidden="true"></i>
                   </a>
@@ -36,8 +36,12 @@
             </thead>
             <tbody>
               <tr v-for="(row, index) in orders" :key="index">
+                <td>{{ this.orders.length ? this.orders[index].id : '' }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ this.orders.length ? this.orders[index].orders_title : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].author_name : '' }}</td>
                 <td>{{ this.orders.length ? this.orders[index].Checkout_date : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].final_return_date : '' }}</td>
+                <td>{{ this.orders.length ? this.orders[index].return_date : '' }}</td>
                 <td>
                   <span class="table-view" @click=updateReturnStatus()></span>
                   <span class="table-remove" @click="openReturnDialog()">                  
