@@ -5,4 +5,5 @@ export const API = {
   auth: (args) => `auth/${args}`,
   user: (args) => `user/${args}`,
   book: (args) => `book/${args}`,
+  order: (args) => `order/${args}`,
 }

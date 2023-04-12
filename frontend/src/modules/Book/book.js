@@ -1,6 +1,7 @@
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import BookDetail from '@/views/Book/BookDetail.vue'
 import {bookApi} from '@/services/BookApi'
+import {orderApi} from '@/services/OrderApi'
 
 export default {
   name: 'BooksView',
@@ -69,12 +70,22 @@ export default {
       this.bookIdToPlaceOrder = this.books[index].id
       this.openBookOrderConfirmDialog = true
     },
-    orderBook(index) {
-      console.log(index)
-      this.$refs.alert.showAlert('success',
+    async orderBook(index) {
+      const inputs = {
+        book_id: this.books[index].id
+      }
+      await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
+        if (response && response.status === 200) {
+          this.$refs.alert.showAlert('success',
         'Successfully ordered the book',
         'Success')
-      },
+        } else {
+          this.$refs.alert.showAlert('error',
+            response.data.detail,
+            'Error placing order')
+        }
+      });
+    },
     remove() {
     // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
     //   if(response && response.status === 200){

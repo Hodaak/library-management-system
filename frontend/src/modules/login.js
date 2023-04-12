@@ -30,6 +30,7 @@ export default {
         })
 
         if (response && response.status === 200) {
+          console.log(response.data)
           const token = response.data.access_token
           const user = this.userNameLogin
           const isAdmin = response.data.is_admin
