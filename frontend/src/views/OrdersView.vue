@@ -1,9 +1,5 @@
 <template>
 <div>
-  <vue-basic-alert
-   :duration="300"
-   :closeIn="3500"
-   ref="alert" />
    <ConfirmationDialog
     style="align-content: center"
     v-if="openReturnConfirmDialog"

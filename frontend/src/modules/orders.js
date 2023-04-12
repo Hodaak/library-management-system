@@ -17,7 +17,7 @@ export default {
       };
     },
     async mounted () {
-      //await this.loadOrders()
+      await this.loadOrders()
     },
     methods: {
       async loadOrders() {
