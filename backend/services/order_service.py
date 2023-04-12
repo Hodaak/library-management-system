@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.order_model import Order
 from schemas import order_schema
-from datetime import datetime
+from datetime import datetime, timedelta
 from services import book_service
 
 
@@ -18,18 +18,18 @@ def get_all_orders_for_user(db: Session, user_id: int):
     return db.query(Order).filter(Order.user_id == user_id).all()
 
 
-def place_order(db: Session, order: order_schema.OrderCreate):
+def place_order(db: Session, order: order_schema.OrderCreate, user_id: int):
     try:
         db_book = book_service.get_book_by_id(db=db, id=order.book_id)
         if db_book is None:
             print("Book doesn't exist, so can't place the order")
             return None
 
-        db_order = Order(user_id=order.user_id,
+        db_order = Order(user_id=user_id,
                          book_id=order.book_id,
-                         checkout_date=order.checkout_date,
-                         final_return_date=order.final_return_date,
-                         returned_date=order.returned_date,
+                         checkout_date=datetime.now(),
+                         final_return_date=datetime.now() + timedelta(weeks=2),
+                         returned_date=None,
                          is_returned=False)
         db.add(db_order)
         db.commit()
