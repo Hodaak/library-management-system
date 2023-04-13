@@ -20,7 +20,9 @@ export default {
       return this.orders.filter(order => {
         return (
           order.book.title.toLowerCase().includes(searchTextLower) ||
-          order.book.author_name.toLowerCase().includes(searchTextLower)
+          order.book.author_name.toLowerCase().includes(searchTextLower) ||
+          order.user.first_name.toLowerCase().includes(searchTextLower) ||
+          order.user.last_name.toLowerCase().includes(searchTextLower) 
         );
       });
     }
