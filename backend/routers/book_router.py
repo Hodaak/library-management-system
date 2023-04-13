@@ -82,15 +82,23 @@ async def update_book_by_id(book_id: int,
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Book doesn't exist or trying to use duplicate book id")
     return db_book
 
-# @router.delete("/{user_id}")
-# def delete_user(user_id: int,
-#                 db: Session = Depends(get_db),
-#                 current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-#     if user_id != current_user.id and current_user.is_super_user is False:
-#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
+@router.delete("/{book_id}")
+def delete_book(book_id: int,
+                db: Session = Depends(get_db),
+                current_user: User = Depends(authentication_service.get_current_user_from_token)):
 
-#     db_user = user_service.delete_user_by_id(db=db, user_id=user_id)
-#     if db_user is False:
-#         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found, so cannot be deleted")
-#     return {"message": "Successfully deleted."}
+    if current_user.is_admin is False:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You are not permitted")
+
+    db_book = book_service.get_book_by_id(db=db, id=book_id)
+
+    if db_book is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Book not found, so cannot be deleted")
+
+    deleted_book = book_service.delete_book_by_id(db=db, book_id=book_id)
+
+    if deleted_book is False:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="At least one active order includes this "
+                                                                         "book, so can not be deleted")
+    return {"message": "Successfully deleted."}

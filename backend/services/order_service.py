@@ -47,7 +47,11 @@ def return_order(db: Session, order_id: int):
     try:
         db_order = get_order_by_id(db=db, order_id=order_id)
         if db_order is None:
-            print("\Order doesn't exist with id: ", order_id)
+            print("\nOrder doesn't exist with id: ", order_id)
+            return None
+
+        if db_order.is_returned is True:
+            print("\nOrder has already returned with id: ", order_id)
             return None
 
         db_order.returned_date = datetime.now()
