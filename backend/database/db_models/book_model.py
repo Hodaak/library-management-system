@@ -1,3 +1,8 @@
+# FILE			: book_model.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a database model to represent Book entity
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 

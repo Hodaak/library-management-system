@@ -1,3 +1,8 @@
+# FILE			: main.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This acts as the point of execution for this project which binds database models and routers.
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

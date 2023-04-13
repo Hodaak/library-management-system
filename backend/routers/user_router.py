@@ -1,3 +1,8 @@
+# FILE			: user_router.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a router that manages endpoints related to user
+
 import fastapi
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.orm import Session

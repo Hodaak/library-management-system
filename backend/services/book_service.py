@@ -1,3 +1,8 @@
+# FILE			: book_service.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a service class to handle business logic for book
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.book_model import Book
@@ -5,8 +10,8 @@ from database.db_models.order_model import Order
 from schemas import book_schema
 
 
-def get_book_by_id(db: Session, id: int):
-    return db.query(Book).filter(Book.id == id).first()
+def get_book_by_id(db: Session, book_id: int):
+    return db.query(Book).filter(Book.id == book_id).first()
 
 
 def get_all_books(db: Session, limit: int = 100):
@@ -21,8 +26,8 @@ def get_book_by_title(db: Session, title: str):
     return db.query(Book).filter(Book.title == title).first()
 
 
-def decrease_book_quantity_by_one(db: Session, id: int):
-    db_book = db.query(Book).filter(Book.id == id).first()
+def decrease_book_quantity_by_one(db: Session, book_id: int):
+    db_book = db.query(Book).filter(Book.id == book_id).first()
     if db_book is None:
         return None
     quantity = db_book.quantity
@@ -35,8 +40,8 @@ def decrease_book_quantity_by_one(db: Session, id: int):
     db.refresh(db_book)
 
 
-def increase_book_quantity_by_one(db: Session, id: int):
-    db_book = db.query(Book).filter(Book.id == id).first()
+def increase_book_quantity_by_one(db: Session, book_id: int):
+    db_book = db.query(Book).filter(Book.id == book_id).first()
     if db_book is None:
         return None
     quantity = db_book.quantity
@@ -76,7 +81,7 @@ def create_book(db: Session, book: book_schema.BookCreate):
 
 def update_book(db: Session, book: book_schema.BookCreate, id: int):
     try:
-        db_book = get_book_by_id(db=db, id=id)
+        db_book = get_book_by_id(db=db, book_id=id)
         if db_book is None:
             print("\nBook doesn't exist with id: ", id)
             return None

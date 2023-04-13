@@ -1,3 +1,8 @@
+# FILE			: authentication_router.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a router that manages endpoints related to authentication
+
 import fastapi
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import Depends, HTTPException, status
