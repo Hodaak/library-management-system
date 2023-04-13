@@ -9,11 +9,9 @@ export default {
       if (!this.searchText) {
         return this.orders;
       }
-      console.log('in computed')
       const searchTextLower = this.searchText.toLowerCase();
       return this.orders.filter(order => {
         return (
-          order.id.toLowerCase().includes(searchTextLower) ||
           order.book.title.toLowerCase().includes(searchTextLower) ||
           order.book.author_name.toLowerCase().includes(searchTextLower)
         );
@@ -53,23 +51,22 @@ export default {
     async loadOrders() {
       let ordersRsp;
       // Check if the user is an admin or a regular user
-      if (localStorage.getItem("isAdmin").toLowerCase() == "true") { // Replace userIsAdmin with the actual condition to check if the user is an admin
-          this.isAdmin = true
-          ordersRsp = await orderApi.getAllOrders();
+      if (localStorage.getItem("isAdmin").toLowerCase() == "true") {
+        this.isAdmin = true
+        ordersRsp = await orderApi.getAllOrders();
       } else {
-          ordersRsp = await orderApi.getAllOrdersForUser();
+        ordersRsp = await orderApi.getAllOrdersForUser();
       }
       this.orders = ordersRsp.data;
-      console.log('this.orders ', this.orders)
     },
     sortData() {
       let sortedDataArray = this.orders.slice()
       sortedDataArray.sort((a, b) => {
-          if (this.sortAscending) {
+        if (this.sortAscending) {
           return a.book.title.localeCompare(b.book.title)
-          } else {
+        } else {
           return b.book.title.localeCompare(a.book.title)
-          }
+        }
       })
       this.orders = sortedDataArray
       this.sortAscending = !this.sortAscending
