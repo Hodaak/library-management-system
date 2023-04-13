@@ -1,6 +1,7 @@
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import BookDetail from '@/views/Book/BookDetail.vue'
 import {bookApi} from '@/services/BookApi'
+import {orderApi} from '@/services/OrderApi'
 
 export default {
   name: 'BooksView',
@@ -12,8 +13,7 @@ export default {
     return {
       books: [],
       selectedBook: null,
-      resourcesToShow: [],
-      export: "",
+      searchText: "",
       bookIdToDelete: null,
       sortAscending: true,
       isViewModalVisible: false,
@@ -24,7 +24,35 @@ export default {
       openBookOrderConfirmDialog: false,
     };
   },
+  mounted() {
+    window.addEventListener('load', () => {
+      const url = new URL(window.location.href);
+      const alertMessage = url.searchParams.get('alertMessage');
+      const alertType = url.searchParams.get('alertType');
+
+      if (alertMessage && alertType) {
+        this.$refs.alert.showAlert(alertType, alertMessage, 'Success');
+        url.searchParams.delete('alertMessage');
+        url.searchParams.delete('alertType');
+        window.history.replaceState({}, '', url);
+      }
+    });
+  },
   computed: {
+    filteredBooks() {
+      if (!this.searchText) {
+        return this.books;
+      }
+      const searchTextLower = this.searchText.toLowerCase();
+      return this.books.filter(book => {
+        return (
+          book.book_id.toLowerCase().includes(searchTextLower) ||
+          book.title.toLowerCase().includes(searchTextLower) ||
+          book.author_name.toLowerCase().includes(searchTextLower) ||
+          book.quantity.toString().includes(searchTextLower)
+        );
+      });
+    },
     isAdmin() {
       return localStorage.getItem('isAdmin') === 'true'
     }
@@ -52,9 +80,6 @@ export default {
     },
     // Trigger opening the portfolio creation dialog
     newBook () {
-      this.$nextTick(() => {
-        this.$refs.BookDetail.$props.selectedBook = null;
-      });
       this.isCreateModalVisible = true
     },
     openDeleteBookDialog(index){
@@ -67,14 +92,36 @@ export default {
     },
     openOrderBookDialog(index){
       this.bookIdToPlaceOrder = this.books[index].id
+      console.log(this.bookIdToPlaceOrder)
       this.openBookOrderConfirmDialog = true
     },
-    orderBook(index) {
-      console.log(index)
-      this.$refs.alert.showAlert('success',
-        'Successfully ordered the book',
-        'Success')
-      },
+    async orderBook() {
+      if(this.books.find(x=> x.id === this.bookIdToPlaceOrder).quantity > 0) {
+        const inputs = {
+          book_id: this.bookIdToPlaceOrder
+        }
+
+        await orderApi.orderBook(JSON.stringify(inputs)).then(async response => {
+          if (response && response.status === 200) {
+              // Add a query parameter to the URL with the alert message and type
+              const url = new URL(window.location.href);
+              url.searchParams.set('alertMessage', 'Successfully ordered the book');
+              url.searchParams.set('alertType', 'success');
+              window.location.href = url.toString();
+            } else {
+              this.$refs.alert.showAlert('error',
+                response.data.detail,
+                'Error placing order')
+            }
+          });
+      }
+      else {
+        this.$refs.alert.showAlert('error',
+            "Couldn't place an order of book because there's no more selected books",
+            'Error placing order')
+      }
+
+    },
     remove() {
     // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
     //   if(response && response.status === 200){
@@ -84,3 +131,5 @@ export default {
     },
   }
 }
+
+

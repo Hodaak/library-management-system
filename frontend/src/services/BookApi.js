@@ -3,7 +3,7 @@
 import service from './base/service'
 import { API } from './base/config'
 
-// these are the api calls specific to User
+// these are the api calls specific to Book
 export const bookApi = {
   getBookByID (bookId) {
     return service.get(`${API.book('')}id/${bookId}`, )
