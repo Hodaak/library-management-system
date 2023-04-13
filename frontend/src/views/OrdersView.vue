@@ -57,8 +57,8 @@
             </thead>
             <tbody>
               <tr v-for="(order, index) in filteredOrders" :key="index">
-                <td class="pt-3-half" v-if="isAdmin" contenteditable="false">{{ order.id }}</td>
-                <td class="pt-3-half" contenteditable="false">{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                <td class="pt-3-half" contenteditable="false">{{ order.id }}</td>
+                <td class="pt-3-half" v-if="isAdmin" contenteditable="false">{{ order.user.first_name }} {{ order.user.last_name }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.book.title }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.book.author_name }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.checkout_date }}</td>
