@@ -1,3 +1,10 @@
+/*
+*  FILE			    : register.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains data and functions which is being used in OrdersView.vue
+*/
+
 import { orderApi } from '../services/OrderApi'
 import ConfirmationDialog from '../components/ConfirmationDialog.vue'
 export default {
@@ -58,7 +65,6 @@ export default {
         ordersRsp = await orderApi.getAllOrdersForUser();
       }
       this.orders = ordersRsp.data;
-      console.log(this.orders)
     },
     sortData() {
       let sortedDataArray = this.orders.slice()

@@ -1,4 +1,7 @@
-// this file contains api calls for Order Entity
+//  FILE			   : OrderApi.js
+//  PROJECT		   : SENG3080 - AWF :: Group Project
+//  LAST VERSION : 2023-04-13
+//  DESCRIPTION	 : this file contains api calls for Order Entity
 
 import service from './base/service'
 import { API } from './base/config'

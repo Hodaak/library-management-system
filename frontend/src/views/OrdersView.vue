@@ -1,3 +1,9 @@
+<!--
+  FILE			    : OrdersView.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a Order page which shows list of Orders in database
+-->
 <template>
 <div>
   <vue-basic-alert
