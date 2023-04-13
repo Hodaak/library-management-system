@@ -36,6 +36,7 @@
             <thead>
               <tr>
                 <th class="text-center">Order Id</th>
+                <th class="text-center" v-if="isAdmin">Member's Name</th>
                 <th class="text-center">Book Title
                   <a href="#" @click="sortData" title="Sort resources">
                     <i class="fas fa-sort" aria-hidden="true"></i>
@@ -50,7 +51,8 @@
             </thead>
             <tbody>
               <tr v-for="(order, index) in filteredOrders" :key="index">
-                <td class="pt-3-half" contenteditable="false">{{ order.id }}</td>
+                <td class="pt-3-half" v-if="isAdmin" contenteditable="false">{{ order.id }}</td>
+                <td class="pt-3-half" contenteditable="false">{{ order.user.first_name }} {{ order.user.last_name }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.book.title }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.book.author_name }}</td>
                 <td class="pt-3-half" contenteditable="false">{{ order.checkout_date }}</td>

@@ -58,6 +58,7 @@ export default {
         ordersRsp = await orderApi.getAllOrdersForUser();
       }
       this.orders = ordersRsp.data;
+      console.log(this.orders)
     },
     sortData() {
       let sortedDataArray = this.orders.slice()
