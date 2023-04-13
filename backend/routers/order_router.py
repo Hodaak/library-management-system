@@ -52,5 +52,5 @@ async def return_order(order_id: int,
     
     db_order = order_service.return_order(db=db, order_id=order_id)
     if db_order is None:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Order doesn't exit, so can't retrun order")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Order doesn't exit, so can't return order")
     return db_order

@@ -8,13 +8,16 @@ from schemas import book_schema
 def get_book_by_id(db: Session, id: int):
     return db.query(Book).filter(Book.id == id).first()
 
+
 def get_all_books(db: Session, limit: int = 100):
     return db.query(Book).limit(limit).all()
+
 
 def get_books_by_author(db: Session, author_name: str):
     return db.query(Book).filter(Book.author_name == author_name).all()
 
-def get_book_by_title(db: Session, title: int):
+
+def get_book_by_title(db: Session, title: str):
     return db.query(Book).filter(Book.title == title).first()
 
 
@@ -26,8 +29,8 @@ def decrease_book_quantity_by_one(db: Session, id: int):
     if quantity <= 0:
         db_book.quantity = 0
     else:
-        db_book.quantity = quantity-1
-    
+        db_book.quantity = quantity - 1
+
     db.commit()
     db.refresh(db_book)
 
@@ -37,17 +40,21 @@ def increase_book_quantity_by_one(db: Session, id: int):
     if db_book is None:
         return None
     quantity = db_book.quantity
-    db_book.quantity = quantity+1
+    db_book.quantity = quantity + 1
     db.commit()
     db.refresh(db_book)
 
 
-# def delete_book_by_id(db: Session, book_id: int):
-#     existing_user = db.query(Book).filter(Book.id == user_id)
-#     if not existing_user.first():
-#         return False
-#     existing_user.delete()
-#     db.commit()
+def delete_book_by_id(db: Session, book_id: int):
+    existing_book = db.query(Book).filter(Book.id == book_id).first()
+    if existing_book is None:
+        return False
+
+    count = db.query(Order).filter(Order.book_id == book_id, Order.is_returned == 0).count()
+    if count > 0:
+        return False
+    db.delete(existing_book)
+    db.commit()
 
 
 def create_book(db: Session, book: book_schema.BookCreate):
@@ -74,9 +81,9 @@ def update_book(db: Session, book: book_schema.BookCreate, id: int):
             print("\nBook doesn't exist with id: ", id)
             return None
 
-        db_book.book_id=book.book_id
-        db_book.title=book.title
-        db_book.author_name=book.author_name
+        db_book.book_id = book.book_id
+        db_book.title = book.title
+        db_book.author_name = book.author_name
         count = db.query(Order).filter(Order.book_id == id, Order.is_returned == 0).count()
         quantity = book.quantity
 
@@ -84,9 +91,9 @@ def update_book(db: Session, book: book_schema.BookCreate, id: int):
             quantity = 0
         if quantity < count:
             quantity = count
-            
-        db_book.quantity=quantity
-        
+
+        db_book.quantity = quantity
+
         db.commit()
         db.refresh(db_book)
         return db_book
@@ -95,4 +102,3 @@ def update_book(db: Session, book: book_schema.BookCreate, id: int):
         print("\nHandled Exception: Trying to create a new book with duplicate book id\n"
               "Error Args:" + str(error.args))
         return None
-    
