@@ -1,5 +1,9 @@
-// this is a javascript file for RegisterView.vue page
-
+/*
+*  FILE			: register.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION    : 2023-04-13
+*  DESCRIPTION	    : this is a javascript file for RegisterView.vue page
+*/
 import {userApi} from '../services/UserApi.js'
 import router from '../router'
 

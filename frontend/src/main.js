@@ -1,3 +1,10 @@
+/*
+*  FILE			    : main.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains general imports that is going to be used generally in all files
+*/
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'

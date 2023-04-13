@@ -1,4 +1,9 @@
-// Import the Login class from Login.js
+<!--
+  FILE			    : Login.spec.js
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION      : 2023-04-13
+  DESCRIPTION	    : This is a unit test file for Login page
+-->
 import Login from '@/views/LoginView.vue'
 import {mount} from '@vue/test-utils'
 

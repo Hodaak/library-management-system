@@ -1,3 +1,10 @@
+<!--
+  FILE			    : SideBar.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This file contains vue code which displays side bar on the page
+-->
+
 <template>
    <!--Main Navigation-->
   <header>

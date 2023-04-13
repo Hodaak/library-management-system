@@ -1,3 +1,10 @@
+/*
+*  FILE			    : loginService.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains services for login
+*/
+
 import axios, { AxiosError } from 'axios'
 import {API_URL} from '@/services/base/config'
 

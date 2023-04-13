@@ -1,3 +1,10 @@
+<!--
+  FILE			    : LoginView.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a Login page
+-->
+
 <template>
   <div id="app">
    <div class="login-page">

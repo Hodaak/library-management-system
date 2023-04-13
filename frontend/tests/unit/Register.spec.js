@@ -1,3 +1,10 @@
+<!--
+  FILE			    : Register.spec.js
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION      : 2023-04-13
+  DESCRIPTION	    : This is a unit test file for Register page
+-->
+
 import Register from '../../src/views/RegisterView.vue'
 import { mount } from '@vue/test-utils'
 

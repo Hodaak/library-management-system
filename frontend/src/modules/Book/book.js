@@ -1,3 +1,10 @@
+/*
+*  FILE			    : book.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains data and functions which is being used in Books.vue
+*/
+
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import BookDetail from '@/views/Book/BookDetail.vue'
 import {bookApi} from '@/services/BookApi'
@@ -122,13 +129,17 @@ export default {
       }
 
     },
-    remove() {
-    // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
-    //   if(response && response.status === 200){
-    //     location.reload()
-    //   }
-    // })
-    },
+    async remove() {
+      await bookApi.deleteBook(this.bookIdToDelete).then(async response => {
+        if (response && response.status === 200) {
+          location.reload();
+        } else {
+          this.$refs.alert.showAlert('error',
+            response.data.detail,
+            'Error deleting book')
+        }
+      });
+    }
   }
 }
 

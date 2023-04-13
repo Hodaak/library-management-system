@@ -1,4 +1,9 @@
-// this file contains api calls for Authentication
+/*
+*  FILE			    : AuthApi.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains api calls for Authentication
+*/
 
 import loginService from './base/loginService'
 import { API } from './base/config'
