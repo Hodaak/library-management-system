@@ -58,8 +58,17 @@ def delete_book_by_id(db: Session, book_id: int):
     count = db.query(Order).filter(Order.book_id == book_id, Order.is_returned == 0).count()
     if count > 0:
         return False
-    db.delete(existing_book)
-    db.commit()
+
+    orders_for_book = existing_book.orders
+    try:
+        for order in orders_for_book:
+            db.delete(order)
+        db.delete(existing_book)
+        db.commit()
+    except IntegrityError as error:
+        # Handle the exception gracefully and log for being informative
+        print("\nError Args:" + str(error.args))
+        return None
 
 
 def create_book(db: Session, book: book_schema.BookCreate):
