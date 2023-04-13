@@ -1,3 +1,10 @@
+<!--
+  FILE			    : App.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a root of the application defined in Vue.js Component file format
+-->
+
 <template>
 <div>
   <!-- <Sidebar/> -->

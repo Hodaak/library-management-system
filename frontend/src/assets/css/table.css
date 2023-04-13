@@ -1,3 +1,10 @@
+/*
+*  FILE			    : table.css
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this is a css file which contains styles table
+*/
+
 .pt-3-half {
     padding-top: 1.4rem;
   }
@@ -45,10 +52,10 @@ td li {
 }
 
 .customUl {
-  max-height: 100px; 
-  overflow-y: auto; 
-  position: absolute; 
-  z-index: 999; 
+  max-height: 100px;
+  overflow-y: auto;
+  position: absolute;
+  z-index: 999;
   background-color: #F0F8FF;
 }
 

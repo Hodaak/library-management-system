@@ -1,3 +1,10 @@
+<!--
+  FILE			    : BookDetail.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a detail view of Book page which user can add new book or modify existing book
+-->
+
 <template>
   <vue-basic-alert
      :duration="300"
