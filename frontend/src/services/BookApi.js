@@ -22,5 +22,8 @@ export const bookApi = {
   },
   updateBook (bookId, data) {
     return service.put(`${API.book('')}${bookId}`, data)
+  },
+  deleteBook(bookId){
+    return service.delete(`${API.book('')}${bookId}`)
   }
 }

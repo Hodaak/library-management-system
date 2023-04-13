@@ -1,7 +1,7 @@
 <template>
   <vue-basic-alert
      :duration="300"
-     :closeIn="2500"
+     :closeIn="3000"
      ref="alert" />
   <ConfirmationDialog
     style="align-content: center"

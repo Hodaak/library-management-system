@@ -122,13 +122,17 @@ export default {
       }
 
     },
-    remove() {
-    // portfolioApi.deletePortfolio(this.portfolioIdToDelete).then(response => {
-    //   if(response && response.status === 200){
-    //     location.reload()
-    //   }
-    // })
-    },
+    async remove() {
+      await bookApi.deleteBook(this.bookIdToDelete).then(async response => {
+        if (response && response.status === 200) {
+          location.reload();
+        } else {
+          this.$refs.alert.showAlert('error',
+            response.data.detail,
+            'Error deleting book')
+        }
+      });
+    }
   }
 }
 
