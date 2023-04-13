@@ -1,3 +1,10 @@
+<!--
+  FILE			    : RegisterView.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a Register page
+-->
+
 <template>
 <div id="app">
    <div class="register-page">

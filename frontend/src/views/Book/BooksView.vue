@@ -1,3 +1,9 @@
+<!--
+  FILE			    : BooksView.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This is a Book page which shows list of books in database
+-->
 <template>
   <vue-basic-alert
      :duration="300"

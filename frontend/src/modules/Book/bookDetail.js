@@ -1,3 +1,10 @@
+/*
+*  FILE			    : bookDetail.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains data and functions which is being used in BookDetail.vue
+*/
+
 import BookDetail from '../../views/Book/BookDetail.vue';
 import { MDBIcon  } from "mdb-vue-ui-kit";
 import {bookApi} from '@/services/BookApi'

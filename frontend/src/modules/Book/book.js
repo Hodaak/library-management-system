@@ -1,3 +1,10 @@
+/*
+*  FILE			    : book.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains data and functions which is being used in Books.vue
+*/
+
 import ConfirmationDialog from '@/components/ConfirmationDialog.vue'
 import BookDetail from '@/views/Book/BookDetail.vue'
 import {bookApi} from '@/services/BookApi'

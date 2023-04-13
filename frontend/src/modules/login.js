@@ -1,4 +1,10 @@
-// this is a javascript file for LoginView.vue page
+/*
+*  FILE			    : login.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this is a javascript file for LoginView.vue page
+*/
+
 import store from '@/store'
 import {api} from '@/services/AuthApi'
 
