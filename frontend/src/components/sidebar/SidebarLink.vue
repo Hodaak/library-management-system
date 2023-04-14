@@ -1,6 +1,10 @@
-
+<!--
+  FILE			    : SideBar.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This file contains vue code which creates a clickable link for navigating between different routes in the application
+-->
 <template>
-  <!-- creates a clickable link for navigating between different routes in the application. -->
   <router-link :to="to" v-bind:class="{ active: isActive }" style="color: dimgrey">
      <div class="icon-container">
       <i class="icon" :class="icon" />

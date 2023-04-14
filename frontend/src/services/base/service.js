@@ -1,3 +1,10 @@
+/*
+*  FILE			    : service.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains services in general
+*/
+
 import axios, { AxiosError } from 'axios'
 import store from '@/store'
 import {API_URL} from '@/services/base/config'

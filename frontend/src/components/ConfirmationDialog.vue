@@ -1,3 +1,10 @@
+<!--
+  FILE			    : ConfirmationDialog.vue
+  PROJECT		    : SENG3080 - AWF :: Group Project
+  LAST VERSION  : 2023-04-13
+  DESCRIPTION	  : This file contains vue code which displays confirmation dialog
+-->
+
 <template>
   <div class="modal">
     <div class="overlay" @click="$emit('close-modal')"></div>

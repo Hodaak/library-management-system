@@ -1,3 +1,10 @@
+/*
+*  FILE			    : index.js
+*  PROJECT		    : SENG3080 - AWF :: Group Project
+*  LAST VERSION     : 2023-04-13
+*  DESCRIPTION	    : this file contains all routes in program
+*/
+
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../views/LoginView.vue'
 import Register from '@/views/RegisterView.vue'
