@@ -1,3 +1,8 @@
+# FILE			: order_service.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a service class to handle business logic for order
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.order_model import Order
@@ -20,7 +25,7 @@ def get_all_orders_for_user(db: Session, user_id: int):
 
 def place_order(db: Session, order: order_schema.OrderCreate, user_id: int):
     try:
-        db_book = book_service.get_book_by_id(db=db, id=order.book_id)
+        db_book = book_service.get_book_by_id(db=db, book_id=order.book_id)
         if db_book is None:
             print("Book doesn't exist, so can't place the order")
             return None
@@ -34,7 +39,7 @@ def place_order(db: Session, order: order_schema.OrderCreate, user_id: int):
         db.add(db_order)
         db.commit()
         db.refresh(db_order)
-        book_service.decrease_book_quantity_by_one(db=db, id=order.book_id)
+        book_service.decrease_book_quantity_by_one(db=db, book_id=order.book_id)
         return db_order
     except IntegrityError as error:
         # Handle the exception gracefully and log for being informative
@@ -56,13 +61,13 @@ def return_order(db: Session, order_id: int):
 
         db_order.returned_date = datetime.now()
         db_order.is_returned = True
-        
+
         db.commit()
         db.refresh(db_order)
-        book_service.increase_book_quantity_by_one(db=db, id=db_order.book_id)
+        book_service.increase_book_quantity_by_one(db=db, book_id=db_order.book_id)
         return db_order
     except IntegrityError as error:
         # Handle the exception gracefully and log for being informative
         print("\nHandled Exception: Trying to return an order\n"
-                "Error Args:" + str(error.args))
+              "Error Args:" + str(error.args))
         return None

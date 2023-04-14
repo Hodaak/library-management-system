@@ -1,3 +1,8 @@
+# FILE			: user_service.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a service class to handle business logic for user
+
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 from database.db_models.user_model import User
