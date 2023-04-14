@@ -1,3 +1,8 @@
+# FILE			: authentication_service.py
+# PROJECT		: SENG3080 - AWF :: Group Project
+# LAST VERSION  : 2023-04-13
+# DESCRIPTION	: This is a service class to handle business logic for authentication
+
 from fastapi import Depends, HTTPException, status
 from core.hashing import Hasher
 from sqlalchemy.orm import Session
