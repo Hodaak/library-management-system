@@ -44,7 +44,9 @@
               <div class="form-group row">
                 <label for="book-quantity" class="col-sm-3 col-form-label">Quantity:</label>
                 <div class="col-sm-9">
-                  <input type="number" min="1" class="form-control" id="book-quantity" v-model="newBookQuantity" required>
+                  <input type="number" min="1" step="1"
+                         oninput="validity.valid||(value='');"
+                         class="form-control" id="book-quantity" v-model="newBookQuantity" required>
                 </div>
               </div>
               <br/>
